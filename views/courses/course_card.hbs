@@ -4,9 +4,15 @@
     <div class="card-body">
         <h5 class="card-title">{{this.courseCode}}</h5>
         <p class="card-text">{{this.courseDescription}}</p>
-        <a href="/course/update}" class="btn btn-primary">Edit</a>
+        <a href="/course/update/{{this.courseId}}" class="btn btn-primary" onclick="myFunction()">Edit</a>
         <a href="/course/delete/{{this.courseId}}" class="btn btn-danger">Delete</a>
     </div>
 </div>
+<script>
+function myFunction() {
+  console.log(courses)
+}
+</script>
+
 {{/each}}
 

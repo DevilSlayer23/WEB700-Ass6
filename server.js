@@ -35,12 +35,13 @@ import path from "path";
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 
+var app = express();
 const hbs = create({
+    extname: '.hbs',
     layoutsDir : __dirname + '/views/layouts'
 });
-var app = express();
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
 app.set('views', [path.join(__dirname, '/views/'),path.join(__dirname, '/views/courses'),path.join(__dirname, '/views/students')]);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -52,8 +53,7 @@ app.use(cors());
 
 
 // Initializing Web Server
-initialize()
-    .then(() => {
+initialize().then(() => {
         console.log("Starting...")
         app.listen(HTTP_PORT, ()=> {console.log("Server listening on port "+ HTTP_PORT)});
     })
@@ -176,11 +176,22 @@ app.post('/student/add', (req, res) => {
     });
 });
 
-app.post('/student/update', (req, res) => {
+
+app.get('/student/update/:num', (req, res) => {
+    let num = req.params.num;
+    let data = getStudentByNum(num)
+    getStudentByNum(num).then((data) => {
+        res.render('updateStudent',{data : data})
+    }).catch((err) => {
+        res.status(500).send("Unable to update student");
+    });
+});
+
+app.post('/student/update/:num', (req, res) => {
     updateStudent(req.body).then(() => {
         res.redirect('/students');
     }).catch((err) => {
-        res.status(500).send("Unable to update course");
+        res.status(500).send("Unable to update student");
     });
 });
 
@@ -188,7 +199,7 @@ app.get('/student/delete/:num', (req, res) => {
     deleteStudentByNum(req.params.num).then(() => {
         res.redirect('/students');
     }).catch((err) => {
-        res.status(500).send("Unable to remove course");
+        res.status(500).send("Unable to remove student");
     });
 });
 
@@ -230,11 +241,22 @@ app.post('/course/add', (req, res) => {
     });
 });
 
+app.get('/course/update/:id', (req, res) => {
+    let courseId = req.params.id;
+    let data = getCourseById(courseId)
+    getCourseById(courseId).then((data) => {
+        res.render('updateCourse',{course:data});
+    }).catch((err) => {
+        res.status(500).send("Unable to update course");
+    });
+});
+
 // Update Course Route 
-app.post('/course/update', (req, res) => {
-    let course = req.body;
-    updateCourse(req.body).then(() => {
-        res.redirect(`/course/${course.courseId}`);
+app.post('/course/update/:id', (req, res) => {
+    const id = req.params.id;
+    const courseData = getCourseById(id);
+    updateCourse(courseData).then((data) => {
+        res.redirect('/courses')
     }).catch((err) => {
         res.status(500).send("Unable to update course");
     });

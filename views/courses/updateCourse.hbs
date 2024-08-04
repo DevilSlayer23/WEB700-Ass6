@@ -1,0 +1,22 @@
+<form method="POST" action="/course/update/{{course.courseId}}">
+    <div class="form-group">
+        <label for="courseCode">Course Code</label>
+        {{#if course}}
+            <input type="text" class="form-control" id="courseCode" name="courseCode" value="{{course.courseCode}}"">
+        {{else}}
+            <input type="text" class="form-control" id="courseCode" name="courseCode">
+        {{/if}}
+
+    </div>
+    <div class="form-group">
+        <label for="courseDescription">Course Description</label>
+        {{#if course}}
+            <input type="text" class="form-control" id="courseDescription" name="courseDescription" value="{{course.courseDescription}}"">
+        {{else}}
+            <input type="text" class="form-control" id="courseDescription" name="courseDescription">
+        {{/if}}
+    </div>
+    <input type="hidden" name="courseId" value="{{id}}">
+    <button type="submit" class="btn btn-primary">Update Course</button>
+</form>
+

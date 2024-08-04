@@ -21,7 +21,10 @@ var sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
 
 
 var Student = sequelize.define('Student', {
-  studentNum: Sequelize.INTEGER,
+  studentNum: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
   email: Sequelize.STRING,
@@ -99,10 +102,10 @@ function getStudentByCourse(course) {
   });
 };
 
-function getStudentByNum(num) {
-  return new Promise((resolve, reject) => {
-    Student.findAll({ where: { studentNum: num } }).then((data) => {
-      resolve(data[0]);
+async function getStudentByNum(num) {
+  return await new Promise((resolve, reject) => {
+    Student.findOne({ where: { studentNum: num } }).then((data) => {
+      resolve(data);
   }).catch((err) => {
       reject("no results returned");
   });
@@ -134,7 +137,7 @@ function getCourses() {
 
 function getCourseById(id) {
   return new Promise((resolve, reject) => {
-    Course.findAll({ where: { courseId: id } }).then((data) => {
+    Course.findOne({ where: { courseId: id } }).then((data) => {
       resolve(data);
   }).catch((err) => {
       reject("no results returned");
@@ -159,13 +162,13 @@ function addStudent(studentData) {
  
 };
 
-function updateStudent(studentData) {
+async function updateStudent(studentData) {
   studentData.TA = (studentData.TA) ? true : false;
   for (var prop in studentData) {
       if (studentData[prop] === "") studentData[prop] = null;
   }
 
-  return new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
       Student.update(studentData, {
           where: { studentNum: studentData.studentNum }
       }).then(() => {
@@ -190,16 +193,17 @@ function addCourse(courseData) {
   });
 };
 
-function updateCourse(courseData) {
+async function updateCourse(courseData) {
+  console.log(`updateCourse: ${courseData}`)
   for (var prop in courseData) {
       if (courseData[prop] === "") courseData[prop] = null;
   }
 
-  return new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
       Course.update(courseData, {
-          where: { courseId: courseData.courseId }
-      }).then(() => {
-          resolve();
+          where: { courseId:courseData.courseId}
+      }).then((data) => {
+          resolve(data);
       }).catch((err) => {
           reject("unable to update course");
       });
