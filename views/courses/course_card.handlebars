@@ -1,0 +1,12 @@
+
+{{#each courses}}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{this.courseCode}}</h5>
+        <p class="card-text">{{this.courseDescription}}</p>
+        <a href="/course/update}" class="btn btn-primary">Edit</a>
+        <a href="/course/delete/{{this.courseId}}" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+{{/each}}
+

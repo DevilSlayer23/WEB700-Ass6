@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+</head>
+<body>
+    <form method="POST" action="/course/update">
+    <div class="form-group">
+        <label for="courseCode">Course Code</label>
+        <input type="text" class="form-control" id="courseCode" name="courseCode" value={{course.courseCode}}>
+    </div>
+    <div class="form-group">
+        <label for="courseDescription">Course Description</label>
+        <input type="text" class="form-control" id="courseDescription" name="courseDescription" value={{course.courseDescription}}>
+    </div>
+    <input type="hidden" name="courseId" value="{{course.courseId}}">
+    <button type="submit" class="btn btn-primary">Update Course</button>
+</form>
+
+</body>
+</html>

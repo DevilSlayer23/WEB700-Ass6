@@ -1,0 +1,40 @@
+
+    {{#if viewData.course}}
+    <select class="form-control" name="course" id="course">
+        <option value="">Select Course</option>
+        {{#each viewData.courses}}
+            <option value="{{courseId}}" {{#if selected}} selected {{/if}}>{{courseCode}}</option>
+        {{/each}}
+    </select>
+    {{else}}
+        <div>No Courses</div>
+    {{/if}}
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Student Number</thnunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each viewData}}
+        <tr>
+            <td>{{studentNum}}</td>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td>{{email}}</td>
+            <td>{{course}}</td>
+            <td>
+                <a href="/student/delete/{{studentNum}}" class="btn btn-danger">Remove</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
