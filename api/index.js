@@ -26,7 +26,7 @@ import {
     updateCourse,
     deleteCourseById,
     deleteStudentByNum,
-} from './modules/collegeData.js';
+} from '../modules/collegeData.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
