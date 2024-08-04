@@ -1,12 +1,16 @@
 /*********************************************************************************
-* WEB700 – Assignment 06
-* I declare that this assignment is my own work in accordance with Seneca Academic Policy. No part
-* of this assignment has been copied manually or electronically from any other source
-* (including 3rd party web sites) or distributed to other students.
+*  WEB700 – Assignment 06
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part of this
+*  assignment has been copied manually or electronically from any other source (including web sites) or 
+*  distributed to other students.
+* 
+*  Name: Sagar Thapa Student ID: 153855234 Date: 2024/08/03
 *
-* Name: Sagar Thapa Student_ID: 153855234 Date: 8/3/2024
+*  Online (Vercel) Link: https://web-700-ass6-gtw8u8ao2-sagar-thapas-projects-a217460d.vercel.app/
+*  
+*  Github Link: https://github.com/DevilSlayer23/WEB700-Ass6
 *
-********************************************************************************/
+********************************************************************************/ 
 import {
     initialize,
     sequelize,
